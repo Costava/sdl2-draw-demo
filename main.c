@@ -1,9 +1,10 @@
 // https://github.com/Costava/sdl2-draw-demo
 
-#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include <SDL.h>
 
 // Initial size
 int screen_width = 512;
@@ -24,7 +25,7 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	pixels[x + ( y * surface->w)] = color;
 }
 
-int main(int argc, char *args[]) {
+int main(void) {
 	SDL_Window *window = NULL;
 	SDL_Surface *surface = NULL;
 
@@ -47,9 +48,6 @@ int main(int argc, char *args[]) {
 		}
 	}
 
-	SDL_Event event;
-	bool quit = false;
-
 	srand(time(NULL));
 
 	int mouse_x = 0;
@@ -62,12 +60,14 @@ int main(int argc, char *args[]) {
 	Uint8 g = 128;
 	Uint8 b = 128;
 
-	bool drawing = false;
+	SDL_Event event;
+	int quit = 0;
+	int drawing = 0;
 
 	while (!quit) {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
-				quit = true;
+				quit = 1;
 			}
 			else if (event.type == SDL_WINDOWEVENT) {
 				if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
@@ -79,10 +79,10 @@ int main(int argc, char *args[]) {
 				}
 			}
 			else if (event.type == SDL_MOUSEBUTTONDOWN) {
-				drawing = true;
+				drawing = 1;
 			}
 			else if (event.type == SDL_MOUSEBUTTONUP) {
-				drawing = false;
+				drawing = 0;
 			}
 			else if (event.type == SDL_MOUSEMOTION) {
 				mouse_x = event.motion.x;
@@ -115,7 +115,6 @@ int main(int argc, char *args[]) {
 			set_pixel(surface, x, y, r, g, b);
 			SDL_UpdateWindowSurface(window);
 		}
-
 	}
 
 	SDL_DestroyWindow(window);

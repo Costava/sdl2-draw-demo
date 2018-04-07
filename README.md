@@ -14,10 +14,10 @@ The window defaults to 512x512 pixels and is resizable. Resizing the window clea
 
 ## Development
 
-This covers building on Windows 64-bit and 32-bit. On Linux and macOS, use your favorite C/C++ compiler and the appropriate SDL2 distribution.
+This covers building on Windows 64-bit and 32-bit. On Linux and macOS, use your favorite C/C++ compiler and the appropriate SDL2 distribution. This project uses the current stable SDL version `2.0.8`.
 
-Download and install [Build Tools for Visual Studio 2017](https://www.visualstudio.com/downloads) to get the `CL` C/C++ compiler and `x64 Native Tools Command Prompt`. Use `x86 Native Tools Command Prompt` for 32-bit Windows. More information on these command prompts  [here](https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line).
-
-Download the Visual C++ [SDL2 development libraries](https://www.libsdl.org/download-2.0.php) and update the two paths in `build.bat` for where you save it (also switch `x64` to `x86` in the second path for 32-bit). This project uses the current stable version `2.0.7`.
-
-Run `build.bat` in the command prompt from above to build. Run `build.bat dev` to get a console when the program runs.
+- Download and install [Build Tools for Visual Studio 2017](https://www.visualstudio.com/downloads) to get the `CL` C/C++ compiler and `x64 Native Tools Command Prompt`. Use `x86 Native Tools Command Prompt` for 32-bit Windows. More information on these command prompts  [here](https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line).
+- Download the Visual C++ [SDL2 development libraries](https://www.libsdl.org/download-2.0.php).
+- Create a symbolic link named `SDL2-2.0.8` targeting the location of the downloaded `SDL2-2.0.8` folder. Likely use `mklink /D SDL2-2.0.8 C:\path\to\SDL2-2.0.8`. The `/D` argument is for directory symbolic link as opposed to the default file symbolic link.
+- Switch `x64` to `x86` for `libpathsdl` in `build.bat` for 32-bit.
+- Run `build.bat` in the command prompt from above to build. Run `build.bat dev` to get a console when the program runs.
