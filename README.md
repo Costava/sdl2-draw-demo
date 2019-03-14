@@ -6,6 +6,8 @@ Use the mouse to draw. The color drifts randomly. The drawing drifts randomly in
 
 The window defaults to 512x512 pixels and is resizable. Resizing the window clears the drawing.
 
+Feel free to ask a question by opening an issue.
+
 ![infinity](https://i.imgur.com/9FfAisq.gif)
 
 ![wander](https://i.imgur.com/LZj88uu.gif)
