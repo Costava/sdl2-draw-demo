@@ -2,16 +2,26 @@
 SETLOCAL
 
 :: Download the Visual C++ development libraries from
-:: https://www.libsdl.org/download-2.0.php
-:: And create symbolic link SDL2-2.0.9 (in the same directory as this file)
+::  https://www.libsdl.org/download-2.0.php
+:: And create symbolic link `SDL2-2.0.9` (in the same directory as this file)
 ::  to the location of the downloaded SDL2-2.0.9 directory
-SET includesdl=SDL2-2.0.9\include
-SET libpathsdl=SDL2-2.0.9\lib\x64
+SET sdl_include=SDL2-2.0.9\include
+SET sdl_libpath=SDL2-2.0.9\lib\x64
+
+:: "use the multithread-specific and DLL-specific version of the run-time library"
+:: via https://docs.microsoft.com/en-us/cpp/build/reference/md-mt-ld-use-run-time-library
+SET runtime=/MD
+
+:: https://docs.microsoft.com/en-us/cpp/build/reference/eh-exception-handling-model
+:: Exception Handling Model
+SET ehm=/EHsc
+
+SET in=main.c
+SET out=Draw.exe
 
 SET subsystem=WINDOWS
-
 IF "%1"=="dev" (
 	SET subsystem=CONSOLE
 )
 
-CL /FeDraw main.c /EHsc /MD /I %includesdl% /link /LIBPATH:%libpathsdl% SDL2.lib SDL2main.lib /SUBSYSTEM:%subsystem%
+CL %in% %ehm% %runtime% /I %sdl_include% /link /out:%out% /LIBPATH:%sdl_libpath% SDL2.lib SDL2main.lib /SUBSYSTEM:%subsystem%
