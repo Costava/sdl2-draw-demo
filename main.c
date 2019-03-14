@@ -22,7 +22,7 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 
 	Uint32 color = SDL_MapRGB(surface->format, r, g, b);
 
-	pixels[x + ( y * surface->w)] = color;
+	pixels[x + (y * surface->w)] = color;
 }
 
 int main(int argc, char *argv[]) {
@@ -31,22 +31,24 @@ int main(int argc, char *argv[]) {
 
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("SDL init failed. SDL_Error: %s\n", SDL_GetError());
+		printf("SDL_Init failed: %s\n", SDL_GetError());
+
+		exit(1);
 	}
-	else {
-		window = SDL_CreateWindow("Draw", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screen_width, screen_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
-		if (window == NULL) {
-			printf("Window creation failed. SDL_Error: %s\n", SDL_GetError());
-		}
-		else {
-			surface = SDL_GetWindowSurface(window);
+	window = SDL_CreateWindow("Draw", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screen_width, screen_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
-			SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
+	if (window == NULL) {
+		printf("SDL_CreateWindow failed: %s\n", SDL_GetError());
 
-			SDL_UpdateWindowSurface(window);
-		}
+		exit(1);
 	}
+
+	surface = SDL_GetWindowSurface(window);
+
+	// Initialize window to all black
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
+	SDL_UpdateWindowSurface(window);
 
 	srand(time(NULL));
 
