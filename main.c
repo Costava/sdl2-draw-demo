@@ -25,7 +25,7 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	pixels[x + ( y * surface->w)] = color;
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
 	SDL_Window *window = NULL;
 	SDL_Surface *surface = NULL;
 
