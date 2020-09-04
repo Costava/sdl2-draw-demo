@@ -4,7 +4,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <SDL.h>
+#ifdef _WIN32
+	#include <SDL.h>
+#elif defined(__linux)
+	#include <SDL2/SDL.h>
+#else
+	#error Failed to include SDL2
+#endif
 
 // Initial size
 int screen_width = 512;
